@@ -1,0 +1,79 @@
+# VLAN Configuration Lab
+
+## 📌 Objective
+
+Configure VLANs on a Cisco switch to logically separate network devices into different broadcast domains.
+
+## 🧩 Network Topology
+
+The lab consists of:
+
+* 1 Cisco switch
+* Multiple PCs
+* VLAN 10 — Sales
+* VLAN 20 — IT
+
+## 🌐 VLAN Configuration
+
+| VLAN | Name  | Network         |
+| ---- | ----- | --------------- |
+| 10   | SALES | 192.168.10.0/24 |
+| 20   | IT    | 192.168.20.0/24 |
+
+## ⚙️ Configuration
+
+### Create VLANs
+
+```cisco
+Switch# configure terminal
+
+Switch(config)# vlan 10
+Switch(config-vlan)# name SALES
+Switch(config-vlan)# exit
+
+Switch(config)# vlan 20
+Switch(config-vlan)# name IT
+Switch(config-vlan)# exit
+```
+
+### Assign Ports
+
+```cisco
+Switch(config)# interface range fastethernet 0/1-4
+Switch(config-if-range)# switchport mode access
+Switch(config-if-range)# switchport access vlan 10
+Switch(config-if-range)# exit
+
+Switch(config)# interface range fastethernet 0/5-8
+Switch(config-if-range)# switchport mode access
+Switch(config-if-range)# switchport access vlan 20
+Switch(config-if-range)# exit
+```
+
+## 🔍 Verification
+
+The following commands can be used to verify the configuration:
+
+```cisco
+show vlan brief
+show interfaces status
+show running-config
+```
+
+## ✅ Expected Result
+
+Devices connected to VLAN 10 should belong to the same broadcast domain, while devices connected to VLAN 20 should belong to a separate broadcast domain.
+
+## 📚 Concepts Demonstrated
+
+* VLAN creation
+* VLAN naming
+* Access ports
+* Broadcast domains
+* Switch port configuration
+* VLAN verification
+* Basic Cisco IOS commands
+
+## 🚀 Future Enhancement
+
+The next stage of this lab is to configure **Inter-VLAN Routing** so that devices in VLAN 10 and VLAN 20 can communicate through a router.
